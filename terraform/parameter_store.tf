@@ -1,5 +1,5 @@
 resource "aws_ssm_parameter" "replace_strings_map" {
-  name = "/${local.identifier}/${var.environment}/${ramdom_id.this.hex}/replace-strings-map"
+  name = "/${local.identifier}/${var.environment}/${random_id.this.hex}/replace-strings-map"
   type = "String"
   value = jsonencode({
     ABN       = "ABN AMRO"
