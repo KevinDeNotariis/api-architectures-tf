@@ -1,5 +1,5 @@
 module "sns" {
-  source = "github.com/KevinDeNotariis/terraform-modules//terraform/sns"
+  source = "github.com/KevinDeNotariis/terraform-modules//terraform/sns?ref=v2.0.0"
 
   identifier  = var.identifier
   environment = var.environment
@@ -14,7 +14,7 @@ module "sns" {
 }
 
 module "loadbalancer" {
-  source = "github.com/KevinDeNotariis/terraform-modules//terraform/loadbalancer"
+  source = "github.com/KevinDeNotariis/terraform-modules//terraform/loadbalancer?ref=v2.0.0"
 
   identifier  = var.identifier
   environment = var.environment
@@ -32,7 +32,7 @@ module "loadbalancer" {
 }
 
 module "ecs" {
-  source = "github.com/KevinDeNotariis/terraform-modules//terraform/ecs"
+  source = "github.com/KevinDeNotariis/terraform-modules//terraform/ecs?ref=v2.0.0"
 
   identifier  = var.identifier
   environment = var.environment
@@ -52,7 +52,7 @@ module "ecs" {
 }
 
 module "autoscaling_ecs" {
-  source = "github.com/KevinDeNotariis/terraform-modules//terraform/autoscaling-ecs"
+  source = "github.com/KevinDeNotariis/terraform-modules//terraform/autoscaling-ecs?ref=v2.0.0"
 
   identifier  = var.identifier
   environment = var.environment
@@ -66,7 +66,7 @@ module "autoscaling_ecs" {
 }
 
 module "codepipeline" {
-  source = "github.com/KevinDeNotariis/terraform-modules//terraform/codepipeline"
+  source = "github.com/KevinDeNotariis/terraform-modules//terraform/codepipeline?ref=v2.0.0"
 
   identifier  = var.identifier
   environment = var.environment
