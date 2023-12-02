@@ -2,3 +2,4 @@
 *.tfstate*
 builds
 terraform.lock.hcl
+terraform.tfvars

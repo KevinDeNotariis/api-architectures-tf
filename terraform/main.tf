@@ -29,7 +29,7 @@ module "api_gateway" {
   strings_mapping_ssm_parameter_arn  = aws_ssm_parameter.replace_strings_map.arn
   strings_mapping_ssm_parameter_name = aws_ssm_parameter.replace_strings_map.name
 
-  api_gateway_subdomain = "api.tmnl"
+  api_gateway_subdomain = "api.${var.identifier}"
   api_gateway_stages    = ["test", "prod"]
   api_gateway_usage_plan_info = {
     test = {
@@ -62,7 +62,7 @@ module "fargate" {
 
   sns_email                          = local.sns_email
   root_domain_name                   = local.root_domain_name
-  lb_subdomain                       = "fargate.tmnl"
+  lb_subdomain                       = "fargate.${var.identifier}"
   strings_mapping_ssm_parameter_arn  = aws_ssm_parameter.replace_strings_map.arn
   strings_mapping_ssm_parameter_name = aws_ssm_parameter.replace_strings_map.name
 

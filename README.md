@@ -144,14 +144,12 @@ The following is the underlying architecture:
 2. CI/CD Pipeline using:
    1. CodeStar connection to Github to source code on push
    2. CodeBuild to build container
-   3. CodeDeploy to Blue/Green deploy new revision to Fargate
+   3. CodeDeploy to **Blue/Green** deploy new revision to Fargate
 3. ECR to store the images
 4. Elastic Load balancer in front of the Fargate
 5. Custom CNAME and TLS certificate in ACM
 6. WAF associated with the load balancer to increase protection
-7. Complete network setup:
-
-   1. 
+7. Complete network setup
 8. Automatic scaling of Fargate containers based on CPU and Memory usage
 
 ## Description
