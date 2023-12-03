@@ -21,8 +21,8 @@ strings_mapping: dict = json.loads(ssm.get_parameter(Name=STRINGS_MAPPING_PARAME
 def case_insensitive_replace(text, pattern, replacement):
     """Takes as input a text and substitue the patterns ignoring casing"""
 
-    regex_pattern = re.compile(re.escape(pattern), re.IGNORECASE)
-    replaced_text = regex_pattern.sub(replacement, text)
+    regex_pattern = r"\b" + re.escape(pattern) + r"\b"
+    replaced_text = re.sub(regex_pattern, replacement, text, flags=re.IGNORECASE)
 
     return replaced_text
 
