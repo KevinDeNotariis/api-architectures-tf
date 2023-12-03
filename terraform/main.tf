@@ -2,9 +2,9 @@
 # Network
 # -----------------------------------------------------------------------------
 module "network" {
-  source = "github.com/KevinDeNotariis/terraform-modules//terraform/network-simple"
+  source = "github.com/KevinDeNotariis/terraform-modules//terraform/network-simple?ref=v2.0.1"
 
-  identifier  = local.identifier
+  identifier  = var.identifier
   environment = var.environment
   suffix      = random_id.this.hex
 
@@ -19,7 +19,7 @@ module "network" {
 module "api_gateway" {
   source = "./api-gateway"
 
-  identifier  = local.identifier
+  identifier  = var.identifier
   environment = var.environment
   suffix      = random_id.this.hex
 
@@ -28,6 +28,7 @@ module "api_gateway" {
   public_hosted_zone_id              = data.aws_route53_zone.current.zone_id
   strings_mapping_ssm_parameter_arn  = aws_ssm_parameter.replace_strings_map.arn
   strings_mapping_ssm_parameter_name = aws_ssm_parameter.replace_strings_map.name
+  waf_arn                            = aws_wafv2_web_acl.this.arn
 
   api_gateway_subdomain = "api.${var.identifier}"
   api_gateway_stages    = ["test", "prod"]
@@ -56,7 +57,7 @@ module "api_gateway" {
 module "fargate" {
   source = "./fargate"
 
-  identifier  = local.identifier
+  identifier  = var.identifier
   environment = var.environment
   suffix      = random_id.this.hex
 
@@ -65,6 +66,7 @@ module "fargate" {
   lb_subdomain                       = "fargate.${var.identifier}"
   strings_mapping_ssm_parameter_arn  = aws_ssm_parameter.replace_strings_map.arn
   strings_mapping_ssm_parameter_name = aws_ssm_parameter.replace_strings_map.name
+  waf_arn                            = aws_wafv2_web_acl.this.arn
 
   vpc_id              = module.network.vpc_id
   public_subnets_ids  = module.network.public_subnets_ids

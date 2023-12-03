@@ -1,5 +1,5 @@
 module "sns" {
-  source = "github.com/KevinDeNotariis/terraform-modules//terraform/sns?ref=v2.0.0"
+  source = "github.com/KevinDeNotariis/terraform-modules//terraform/sns?ref=v2.0.1"
 
   identifier  = var.identifier
   environment = var.environment
@@ -14,7 +14,7 @@ module "sns" {
 }
 
 module "loadbalancer" {
-  source = "github.com/KevinDeNotariis/terraform-modules//terraform/loadbalancer?ref=v2.0.0"
+  source = "github.com/KevinDeNotariis/terraform-modules//terraform/loadbalancer?ref=v2.0.1"
 
   identifier  = var.identifier
   environment = var.environment
@@ -32,7 +32,7 @@ module "loadbalancer" {
 }
 
 module "ecs" {
-  source = "github.com/KevinDeNotariis/terraform-modules//terraform/ecs?ref=v2.0.0"
+  source = "github.com/KevinDeNotariis/terraform-modules//terraform/ecs?ref=v2.0.1"
 
   identifier  = var.identifier
   environment = var.environment
@@ -52,7 +52,7 @@ module "ecs" {
 }
 
 module "autoscaling_ecs" {
-  source = "github.com/KevinDeNotariis/terraform-modules//terraform/autoscaling-ecs?ref=v2.0.0"
+  source = "github.com/KevinDeNotariis/terraform-modules//terraform/autoscaling-ecs?ref=v2.0.1"
 
   identifier  = var.identifier
   environment = var.environment
@@ -66,7 +66,7 @@ module "autoscaling_ecs" {
 }
 
 module "codepipeline" {
-  source = "github.com/KevinDeNotariis/terraform-modules//terraform/codepipeline?ref=v2.0.0"
+  source = "github.com/KevinDeNotariis/terraform-modules//terraform/codepipeline?ref=v2.0.1"
 
   identifier  = var.identifier
   environment = var.environment
@@ -112,4 +112,9 @@ module "codepipeline" {
   depends_on = [
     module.ecs,
   ]
+}
+
+resource "aws_wafv2_web_acl_association" "this" {
+  resource_arn = module.loadbalancer.lb_arn
+  web_acl_arn  = var.waf_arn
 }

@@ -42,7 +42,7 @@ locals {
       }
       aliases = {
         test = "$LATEST"
-        prod = "4"
+        prod = "14"
       }
     }
   }

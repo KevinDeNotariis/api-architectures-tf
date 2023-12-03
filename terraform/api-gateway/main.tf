@@ -11,6 +11,13 @@ resource "aws_api_gateway_rest_api" "this" {
   put_rest_api_mode = "merge"
 }
 
+resource "aws_wafv2_web_acl_association" "this" {
+  for_each = aws_api_gateway_stage.this
+
+  resource_arn = each.value.arn
+  web_acl_arn  = var.waf_arn
+}
+
 # ------------------------------------------------------------------------------------------
 # IAM for API gateway to push cloudwatch logs
 # ------------------------------------------------------------------------------------------

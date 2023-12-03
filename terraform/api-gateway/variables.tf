@@ -43,6 +43,11 @@ variable "strings_mapping_ssm_parameter_arn" {
   type        = string
 }
 
+variable "waf_arn" {
+  description = "The arn of the WAF to associate to the API gateway"
+  type        = string
+}
+
 # ------------------------------------------------------------------------------------------
 # Api gateway variables
 # ------------------------------------------------------------------------------------------
