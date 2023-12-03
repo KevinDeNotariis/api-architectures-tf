@@ -1,0 +1,146 @@
+Project: KevinDeNotariis/api-architectures-tf/terraform
+
+ Name                                                                                                                                Monthly Qty  Unit                        Monthly Cost 
+                                                                                                                                                                                           
+ aws_cloudwatch_log_group.this                                                                                                                                                             
+ ├─ Data ingested                                                                                                            Monthly cost depends on usage: $0.57 per GB                   
+ ├─ Archival Storage                                                                                                         Monthly cost depends on usage: $0.03 per GB                   
+ └─ Insights queries data scanned                                                                                            Monthly cost depends on usage: $0.0057 per GB                 
+                                                                                                                                                                                           
+ aws_wafv2_web_acl.this                                                                                                                                                                    
+ ├─ Web ACL usage                                                                                                                              1  months                             $5.00 
+ ├─ Rules                                                                                                                                      1  rules                              $1.00 
+ └─ Requests                                                                                                                 Monthly cost depends on usage: $0.60 per 1M requests          
+                                                                                                                                                                                           
+ module.api_gateway.aws_api_gateway_rest_api.this                                                                                                                                          
+ └─ Requests (first 333M)                                                                                                    Monthly cost depends on usage: $3.50 per 1M requests          
+                                                                                                                                                                                           
+ module.api_gateway.aws_cloudwatch_log_group.api_gateway_stage["prod"]                                                                                                                     
+ ├─ Data ingested                                                                                                            Monthly cost depends on usage: $0.57 per GB                   
+ ├─ Archival Storage                                                                                                         Monthly cost depends on usage: $0.03 per GB                   
+ └─ Insights queries data scanned                                                                                            Monthly cost depends on usage: $0.0057 per GB                 
+                                                                                                                                                                                           
+ module.api_gateway.aws_cloudwatch_log_group.api_gateway_stage["test"]                                                                                                                     
+ ├─ Data ingested                                                                                                            Monthly cost depends on usage: $0.57 per GB                   
+ ├─ Archival Storage                                                                                                         Monthly cost depends on usage: $0.03 per GB                   
+ └─ Insights queries data scanned                                                                                            Monthly cost depends on usage: $0.0057 per GB                 
+                                                                                                                                                                                           
+ module.api_gateway.aws_cloudwatch_metric_alarm.api_gateway_4xx                                                                                                                            
+ └─ Standard resolution                                                                                                                        2  alarm metrics                      $0.20 
+                                                                                                                                                                                           
+ module.api_gateway.aws_cloudwatch_metric_alarm.api_gateway_5xx                                                                                                                            
+ └─ Standard resolution                                                                                                                        2  alarm metrics                      $0.20 
+                                                                                                                                                                                           
+ module.api_gateway.aws_cloudwatch_metric_alarm.api_gateway_latency                                                                                                                        
+ └─ Standard resolution                                                                                                                        1  alarm metrics                      $0.10 
+                                                                                                                                                                                           
+ module.api_gateway.aws_route53_record.cert_validation                                                                                                                                     
+ ├─ Standard queries (first 1B)                                                                                              Monthly cost depends on usage: $0.40 per 1M queries           
+ ├─ Latency based routing queries (first 1B)                                                                                 Monthly cost depends on usage: $0.60 per 1M queries           
+ └─ Geo DNS queries (first 1B)                                                                                               Monthly cost depends on usage: $0.70 per 1M queries           
+                                                                                                                                                                                           
+ module.api_gateway.aws_s3_bucket.lambdas_source_code                                                                                                                                      
+ └─ Standard                                                                                                                                                                               
+    ├─ PUT, COPY, POST, LIST requests                                                                                        Monthly cost depends on usage: $0.005 per 1k requests         
+    ├─ GET, SELECT, and all other requests                                                                                   Monthly cost depends on usage: $0.0004 per 1k requests        
+    ├─ Select data scanned                                                                                                   Monthly cost depends on usage: $0.002 per GB                  
+    └─ Select data returned                                                                                                  Monthly cost depends on usage: $0.0007 per GB                 
+                                                                                                                                                                                           
+ module.api_gateway.aws_sns_topic.this                                                                                                                                                     
+ ├─ API requests (over 1M)                                                                                                   Monthly cost depends on usage: $0.50 per 1M requests          
+ ├─ HTTP/HTTPS notifications (over 100k)                                                                                     Monthly cost depends on usage: $0.06 per 100k notifications   
+ ├─ Email/Email-JSON notifications (over 1k)                                                                                 Monthly cost depends on usage: $2.00 per 100k notifications   
+ ├─ Kinesis Firehose notifications                                                                                           Monthly cost depends on usage: $0.19 per 1M notifications     
+ ├─ Mobile Push notifications                                                                                                Monthly cost depends on usage: $0.50 per 1M notifications     
+ ├─ MacOS notifications                                                                                                      Monthly cost depends on usage: $0.50 per 1M notifications     
+ └─ SMS notifications (over 100)                                                                                             Monthly cost depends on usage: $0.75 per 100 notifications    
+                                                                                                                                                                                           
+ module.api_gateway.module.api_integrations["replace_strings"].aws_cloudwatch_metric_alarm.lambda_duration["prod"]                                                                         
+ └─ Standard resolution                                                                                                                        1  alarm metrics                      $0.10 
+                                                                                                                                                                                           
+ module.api_gateway.module.api_integrations["replace_strings"].aws_cloudwatch_metric_alarm.lambda_duration["test"]                                                                         
+ └─ Standard resolution                                                                                                                        1  alarm metrics                      $0.10 
+                                                                                                                                                                                           
+ module.api_gateway.module.api_integrations["replace_strings"].aws_cloudwatch_metric_alarm.lambda_errors["prod"]                                                                           
+ └─ Standard resolution                                                                                                                        1  alarm metrics                      $0.10 
+                                                                                                                                                                                           
+ module.api_gateway.module.api_integrations["replace_strings"].aws_cloudwatch_metric_alarm.lambda_errors["test"]                                                                           
+ └─ Standard resolution                                                                                                                        1  alarm metrics                      $0.10 
+                                                                                                                                                                                           
+ module.api_gateway.module.api_integrations["replace_strings"].aws_cloudwatch_metric_alarm.lambda_invocations["prod"]                                                                      
+ └─ Standard resolution                                                                                                                        1  alarm metrics                      $0.10 
+                                                                                                                                                                                           
+ module.api_gateway.module.api_integrations["replace_strings"].aws_cloudwatch_metric_alarm.lambda_invocations["test"]                                                                      
+ └─ Standard resolution                                                                                                                        1  alarm metrics                      $0.10 
+                                                                                                                                                                                           
+ module.api_gateway.module.api_integrations["replace_strings"].module.lambda_integration.aws_cloudwatch_log_group.lambda[0]                                                                
+ ├─ Data ingested                                                                                                            Monthly cost depends on usage: $0.57 per GB                   
+ ├─ Archival Storage                                                                                                         Monthly cost depends on usage: $0.03 per GB                   
+ └─ Insights queries data scanned                                                                                            Monthly cost depends on usage: $0.0057 per GB                 
+                                                                                                                                                                                           
+ module.fargate.module.codepipeline.aws_cloudwatch_log_group.this                                                                                                                          
+ ├─ Data ingested                                                                                                            Monthly cost depends on usage: $0.57 per GB                   
+ ├─ Archival Storage                                                                                                         Monthly cost depends on usage: $0.03 per GB                   
+ └─ Insights queries data scanned                                                                                            Monthly cost depends on usage: $0.0057 per GB                 
+                                                                                                                                                                                           
+ module.fargate.module.codepipeline.aws_codebuild_project.this                                                                                                                             
+ └─ Linux (general1.small)                                                                                                   Monthly cost depends on usage: $0.005 per minutes             
+                                                                                                                                                                                           
+ module.fargate.module.codepipeline.aws_s3_bucket.this                                                                                                                                     
+ └─ Standard                                                                                                                                                                               
+    ├─ PUT, COPY, POST, LIST requests                                                                                        Monthly cost depends on usage: $0.005 per 1k requests         
+    ├─ GET, SELECT, and all other requests                                                                                   Monthly cost depends on usage: $0.0004 per 1k requests        
+    ├─ Select data scanned                                                                                                   Monthly cost depends on usage: $0.002 per GB                  
+    └─ Select data returned                                                                                                  Monthly cost depends on usage: $0.0007 per GB                 
+                                                                                                                                                                                           
+ module.fargate.module.ecs.aws_cloudwatch_log_group.ecs                                                                                                                                    
+ ├─ Data ingested                                                                                                            Monthly cost depends on usage: $0.57 per GB                   
+ ├─ Archival Storage                                                                                                         Monthly cost depends on usage: $0.03 per GB                   
+ └─ Insights queries data scanned                                                                                            Monthly cost depends on usage: $0.0057 per GB                 
+                                                                                                                                                                                           
+ module.fargate.module.ecs.aws_ecr_repository.this                                                                                                                                         
+ └─ Storage                                                                                                                  Monthly cost depends on usage: $0.10 per GB                   
+                                                                                                                                                                                           
+ module.fargate.module.ecs.aws_ecs_service.this                                                                                                                                            
+ ├─ Per GB per hour                                                                                                                            1  GB                                 $3.24 
+ └─ Per vCPU per hour                                                                                                                        0.5  CPU                               $14.78 
+                                                                                                                                                                                           
+ module.fargate.module.loadbalancer.aws_lb.this                                                                                                                                            
+ ├─ Application load balancer                                                                                                                730  hours                             $18.40 
+ └─ Load balancer capacity units                                                                                             Monthly cost depends on usage: $5.84 per LCU                  
+                                                                                                                                                                                           
+ module.fargate.module.loadbalancer.aws_route53_record.cert_validation                                                                                                                     
+ ├─ Standard queries (first 1B)                                                                                              Monthly cost depends on usage: $0.40 per 1M queries           
+ ├─ Latency based routing queries (first 1B)                                                                                 Monthly cost depends on usage: $0.60 per 1M queries           
+ └─ Geo DNS queries (first 1B)                                                                                               Monthly cost depends on usage: $0.70 per 1M queries           
+                                                                                                                                                                                           
+ module.fargate.module.loadbalancer.aws_route53_record.this                                                                                                                                
+ ├─ Standard queries (first 1B)                                                                                              Monthly cost depends on usage: $0.40 per 1M queries           
+ ├─ Latency based routing queries (first 1B)                                                                                 Monthly cost depends on usage: $0.60 per 1M queries           
+ └─ Geo DNS queries (first 1B)                                                                                               Monthly cost depends on usage: $0.70 per 1M queries           
+                                                                                                                                                                                           
+ module.fargate.module.sns.aws_sns_topic.general                                                                                                                                           
+ ├─ API requests (over 1M)                                                                                                   Monthly cost depends on usage: $0.50 per 1M requests          
+ ├─ HTTP/HTTPS notifications (over 100k)                                                                                     Monthly cost depends on usage: $0.06 per 100k notifications   
+ ├─ Email/Email-JSON notifications (over 1k)                                                                                 Monthly cost depends on usage: $2.00 per 100k notifications   
+ ├─ Kinesis Firehose notifications                                                                                           Monthly cost depends on usage: $0.19 per 1M notifications     
+ ├─ Mobile Push notifications                                                                                                Monthly cost depends on usage: $0.50 per 1M notifications     
+ ├─ MacOS notifications                                                                                                      Monthly cost depends on usage: $0.50 per 1M notifications     
+ └─ SMS notifications (over 100)                                                                                             Monthly cost depends on usage: $0.75 per 100 notifications    
+                                                                                                                                                                                           
+ module.network.aws_nat_gateway.this                                                                                                                                                       
+ ├─ NAT gateway                                                                                                                              730  hours                             $35.04 
+ └─ Data processed                                                                                                           Monthly cost depends on usage: $0.048 per GB                  
+                                                                                                                                                                                           
+ OVERALL TOTAL                                                                                                                                                                      $78.56 
+──────────────────────────────────
+142 cloud resources were detected:
+∙ 31 were estimated, 20 of which include usage-based costs, see https://infracost.io/usage-file
+∙ 105 were free, rerun with --show-skipped to see details
+∙ 6 are not supported yet, rerun with --show-skipped to see details
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
+┃ Project                                            ┃ Monthly cost ┃
+┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━┫
+┃ KevinDeNotariis/api-architectures-tf/terraform     ┃ $79          ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━┛

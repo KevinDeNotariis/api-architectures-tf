@@ -19,9 +19,10 @@ echo/variables:
 # --------------------------------------------------------------------
 install/terraform:
 	@echo "Installing terraform..."
-	@wget https://releases.hashicorp.com/terraform/$(TERRAFORM_VERSION)/terraform_$(TERRAFORM_VERSION)_linux_arm64.zip
-	@unzip terraform_$(TERRAFORM_VERSION)_linux_amd64.zip
-	@mv terraform /usr/local/bin/
+	@wget https://releases.hashicorp.com/terraform/$(TERRAFORM_VERSION)/terraform_$(TERRAFORM_VERSION)_linux_amd64.zip -O /tmp/terraform.zip
+	@unzip /tmp/terraform.zip -d /tmp
+	@cp /tmp/terraform /usr/local/bin/
+	@cp /tmp/terraform /usr/bin/
 
 install/tfscan:
 	@echo "Installing tfscan..."
@@ -35,6 +36,16 @@ tfscan/exec:
 	@echo "Scanning terraform configurations..."
 	@cd $(MODULE) && \
 		tfsec .
+
+# --------------------------------------------------------------------
+# Infracost targets
+# --------------------------------------------------------------------
+infracost/breakdown:
+	@echo "Running infracost breakdown..."
+	@cd $(MODULE) && \
+		infracost breakdown --path . \
+			--sync-usage-file \
+			--usage-file ../infracost.yml
 
 # --------------------------------------------------------------------
 # Terraform targets
