@@ -48,23 +48,23 @@ resource "aws_api_gateway_account" "this" {
 # ------------------------------------------------------------------------------------------
 # Api gateway Custom Responses
 # ------------------------------------------------------------------------------------------
-resource "aws_api_gateway_gateway_response" "access_denied_403" {
-  rest_api_id   = aws_api_gateway_rest_api.this.id
-  status_code   = "403"
-  response_type = "ACCESS_DENIED"
-
-  response_templates = {
-    "application/json" = "{\"errorCode\":\"$context.authorizer.errorCode\", \"errorType\": \"$context.authorizer.errorType\", \"errorMessage\": \"$context.authorizer.errorMessage\"}"
-  }
-}
-
 resource "aws_api_gateway_gateway_response" "bad_request_body_400" {
   rest_api_id   = aws_api_gateway_rest_api.this.id
   status_code   = "400"
   response_type = "BAD_REQUEST_BODY"
 
   response_templates = {
-    "application/json" = "{\n \"message\": \"Invalid request body\", \n \"cause\": \"$context.error.validationErrorString\" \n }"
+    "application/json" = "{\"message\": \"Invalid request body\", \"cause\": \"$context.error.validationErrorString\"}"
+  }
+}
+
+resource "aws_api_gateway_gateway_response" "route_not_found_404" {
+  rest_api_id   = aws_api_gateway_rest_api.this.id
+  status_code   = "404"
+  response_type = "MISSING_AUTHENTICATION_TOKEN"
+
+  response_templates = {
+    "application/json" = "{\"message\": \"Not Found\"}"
   }
 }
 
@@ -77,10 +77,10 @@ resource "aws_api_gateway_deployment" "this" {
 
   triggers = {
     redeployment = sha256(jsonencode(flatten([
-      module.api_integrations[*],
+      module.api_integrations,
       aws_api_gateway_resource.string,
       aws_api_gateway_resource.string_replace,
-      aws_api_gateway_gateway_response.access_denied_403,
+      aws_api_gateway_gateway_response.route_not_found_404,
       aws_api_gateway_gateway_response.bad_request_body_400,
     ])))
   }

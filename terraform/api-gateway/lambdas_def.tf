@@ -36,7 +36,8 @@ locals {
               content = {
                 type = "string"
               },
-            }
+            },
+            required = ["content"]
           })
         }
       }
