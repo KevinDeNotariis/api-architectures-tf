@@ -1,6 +1,7 @@
+.DS_Store
 .terraform
 *.tfstate*
 builds
-terraform.lock.hcl
+.terraform.lock.hcl
 terraform.tfvars
 .infracost

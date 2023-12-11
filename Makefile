@@ -4,6 +4,23 @@ TERRAFORM_STATE_KEY ?= tmnl-apis/$(MODULE)/tfstate.json
 SSM_PARAMETER_TERRAFORM_S3_BUCKET ?= /terraform/statefiles/bucket
 AWS_REGION ?= eu-west-1
 
+KNOWN_TARGETS = install-dependencies \
+	terraform-init \
+	terraform-plan \
+	terraform-apply \
+	echo/variables \
+	install/terraform \
+	install/tfscan \
+	tfscan/exec \
+	terraform/clean \
+	terraform/init \
+	terraform/plan \
+	terraform/apply \
+	terraform/destroy
+
+ARGS := $(filter-out $(KNOWN_TARGETS),$(MAKECMDGOALS))
+.DEFAULT:
+
 install-dependencies: install/terraform install/tfscan
 
 terraform-init: terraform/clean terraform/init
@@ -66,14 +83,14 @@ terraform/init:
 terraform/plan:
 	@echo "Running terraform plan..."
 	@cd $(MODULE) && \
-		terraform plan
+		terraform plan $(ARGS)
 
 terraform/apply:
 	@echo "Running terraform apply..."
 	@cd $(MODULE) && \
-		terraform apply
+		terraform apply $(ARGS)
 
 terraform/destroy:
 	@echo "Running terraform destroy..."
 	@cd $(MODULE) && \
-		terraform destroy
+		terraform destroy $(ARGS)
